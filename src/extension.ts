@@ -38,7 +38,7 @@ const convertToJSModel = async() => {
 							break;
 						case Placeholder.CONSTRUCTOR_PARAMS:
 							const properties = Object.keys(jsClass.model);
-							editBuilder.insert(insertPos, getConstructorParamsTemplate(properties)+`\n`);
+							editBuilder.insert(insertPos, getConstructorParamsTemplate(Object.entries(jsClass.model))+`\n`);
 							insertPos = new vscode.Position(insertPos.line+1, 0);
 							break;
 						case Placeholder.CONSTRUCTOR_PROPERTIES:

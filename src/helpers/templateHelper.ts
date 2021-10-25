@@ -11,6 +11,8 @@ const Placeholder = {
 	CONSTRUCTOR_PROPERTIES: `CONSTRUCTOR_PROPERTIES` 
 };
 
+const genericTypes = ["String", "Number", "Boolean"] 
+
 const getTemplate = (className: String) => (
 	[
 		`export class ${className} {`,
@@ -30,7 +32,10 @@ const getTemplate = (className: String) => (
 );
 
 const getClassPropertiesTemplate = (property: String, type: String) => `\t * @property {${type}} ${property}`;//TODO: Add capitalize back
-const getConstructorParamsTemplate = (properties: String[]) => `\tconstructor({ ${properties.join(`, `)} } = {}) {`;
+const getConstructorParamsTemplate = (properties: [string, any][]) => {
+    const parameters = properties.map(([property, type]) => genericTypes.includes(type) ? property : `${property} = new ${type}()`);
+    return `\tconstructor({ ${parameters.join(`, `)} } = {}) {`;
+};
 const getConstructorPropertiesTemplate = (property: String) => `\t\tthis.${property} = ${property};`;
 
 const getModelsFromJson = (json: Object, className: String, classes: JSClass[] = []) => {
