@@ -75,4 +75,12 @@ Added an icon
 
 - Reimplemented custom Constructor Object naming by separation of ~
 
+### 1.0.1
+
+- Removed ~
+
+### 1.0.2
+
+- Issue #1: Added support for instantiating objects
+
 **Enjoy!**
