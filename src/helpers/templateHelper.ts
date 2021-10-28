@@ -11,17 +11,18 @@ const Placeholder = {
 	CONSTRUCTOR_PROPERTIES: `CONSTRUCTOR_PROPERTIES` 
 };
 
-const genericTypes = ["String", "Number", "Boolean"] 
+const genericTypes = ["String", "Number", "Boolean", "DateTime"] 
 
 const getTemplate = (className: String) => (
 	[
 		`export class ${className} {`,
+        ``,
 		`\t/**`,
-		`\t * @typedef {Object} ${className}~Constructor`,
+		`\t * @typedef {Object} ${className}Constructor`,
 		Placeholder.CLASS_PROPERTIES,
 		`\t */`,
 		`\t/**`,
-		`\t * @param {${className}~Constructor} Constructor - Constructor`,
+		`\t * @param {${className}Constructor} Constructor - Constructor`,
 		`\t */`,
 		Placeholder.CONSTRUCTOR_PARAMS,
 		Placeholder.CONSTRUCTOR_PROPERTIES,
@@ -33,7 +34,7 @@ const getTemplate = (className: String) => (
 
 const getClassPropertiesTemplate = (property: String, type: String) => `\t * @property {${type}} ${property}`;//TODO: Add capitalize back
 const getConstructorParamsTemplate = (properties: [string, any][]) => {
-    const parameters = properties.map(([property, type]) => genericTypes.includes(type) ? property : `${property} = new ${type}()`);
+    const parameters = properties.map(([property, type]) => genericTypes.includes(type) || type.endsWith('[]') ? property : `${property} = new ${type}()`);
     return `\tconstructor({ ${parameters.join(`, `)} } = {}) {`;
 };
 const getConstructorPropertiesTemplate = (property: String) => `\t\tthis.${property} = ${property};`;
